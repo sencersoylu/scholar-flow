@@ -1,10 +1,9 @@
 """Tests for arXiv MCP Server tools."""
 
-import pytest
 import httpx
+import pytest
 import respx
-
-from arxiv_mcp.server import mcp, search_arxiv, get_paper, get_latex_source
+from arxiv_mcp.server import get_latex_source, get_paper, mcp, search_arxiv
 from fixtures import SAMPLE_ARXIV_RESPONSE, SAMPLE_ARXIV_SINGLE
 
 

@@ -1,6 +1,6 @@
 """arXiv data models."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
@@ -40,7 +40,7 @@ class SearchResult:
 
     def to_markdown(self) -> str:
         header = (
-            f"## arXiv Search: \"{self.query}\"\n\n"
+            f'## arXiv Search: "{self.query}"\n\n'
             f"Found {self.total_count} results, showing {self.returned_count}.\n\n"
         )
         papers_md = "\n---\n\n".join(p.to_markdown() for p in self.papers)

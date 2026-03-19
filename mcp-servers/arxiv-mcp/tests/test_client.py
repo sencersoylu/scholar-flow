@@ -1,9 +1,8 @@
 """Tests for arXiv API client."""
 
-import pytest
 import httpx
+import pytest
 import respx
-
 from arxiv_mcp.client import ArxivClient
 from fixtures import SAMPLE_ARXIV_RESPONSE, SAMPLE_ARXIV_SINGLE
 

@@ -17,7 +17,8 @@ SAMPLE_ARXIV_RESPONSE = """<?xml version="1.0" encoding="UTF-8"?>
     <author><name>Alice Doe</name></author>
     <arxiv:doi>10.1234/example</arxiv:doi>
     <link href="http://arxiv.org/abs/2401.12345v2" rel="alternate" type="text/html"/>
-    <link href="http://arxiv.org/pdf/2401.12345v2" title="pdf" rel="related" type="application/pdf"/>
+    <link href="http://arxiv.org/pdf/2401.12345v2" title="pdf" rel="related"
+          type="application/pdf"/>
     <arxiv:primary_category term="cs.CL"/>
     <category term="cs.CL"/>
     <category term="cs.AI"/>
@@ -37,7 +38,8 @@ SAMPLE_ARXIV_SINGLE = """<?xml version="1.0" encoding="UTF-8"?>
     <author><name>Alice Doe</name></author>
     <arxiv:doi>10.1234/example</arxiv:doi>
     <link href="http://arxiv.org/abs/2401.12345v2" rel="alternate" type="text/html"/>
-    <link href="http://arxiv.org/pdf/2401.12345v2" title="pdf" rel="related" type="application/pdf"/>
+    <link href="http://arxiv.org/pdf/2401.12345v2" title="pdf" rel="related"
+          type="application/pdf"/>
     <category term="cs.CL"/>
     <category term="cs.AI"/>
   </entry>

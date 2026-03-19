@@ -1,6 +1,6 @@
 """Tests for arXiv Atom XML parser."""
 
-from arxiv_mcp.parser import parse_search_response, _parse_entry
+from arxiv_mcp.parser import parse_search_response
 from fixtures import SAMPLE_ARXIV_RESPONSE, SAMPLE_ARXIV_SINGLE
 
 

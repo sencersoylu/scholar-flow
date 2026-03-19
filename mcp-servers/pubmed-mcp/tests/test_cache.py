@@ -1,6 +1,5 @@
 """Tests for response cache."""
 
-import json
 import time
 
 from pubmed_mcp.cache import ResponseCache

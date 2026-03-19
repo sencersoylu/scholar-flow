@@ -1,11 +1,10 @@
 """Tests for PubMed E-utilities API client."""
 
-import pytest
 import httpx
+import pytest
 import respx
-
+from fixtures import SAMPLE_EFETCH_RESPONSE, SAMPLE_ESEARCH_RESPONSE, SAMPLE_MESH_RESPONSE
 from pubmed_mcp.client import PubMedClient
-from fixtures import SAMPLE_ESEARCH_RESPONSE, SAMPLE_EFETCH_RESPONSE, SAMPLE_MESH_RESPONSE
 
 
 @pytest.fixture

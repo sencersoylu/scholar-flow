@@ -1,11 +1,10 @@
 """Tests for PubMed MCP Server tools."""
 
-import pytest
 import httpx
+import pytest
 import respx
-
-from pubmed_mcp.server import mcp, search_pubmed, get_article, search_mesh
-from fixtures import SAMPLE_ESEARCH_RESPONSE, SAMPLE_EFETCH_RESPONSE, SAMPLE_MESH_RESPONSE
+from fixtures import SAMPLE_EFETCH_RESPONSE, SAMPLE_ESEARCH_RESPONSE, SAMPLE_MESH_RESPONSE
+from pubmed_mcp.server import get_article, mcp, search_mesh, search_pubmed
 
 
 def test_server_name():

@@ -38,7 +38,7 @@ class SearchResult:
 
     def to_markdown(self) -> str:
         header = (
-            f"## PubMed Search: \"{self.query}\"\n\n"
+            f'## PubMed Search: "{self.query}"\n\n'
             f"Found {self.total_count} results, showing {self.returned_count}.\n\n"
         )
         articles_md = "\n---\n\n".join(a.to_markdown() for a in self.articles)

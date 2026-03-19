@@ -1,6 +1,6 @@
 """Tests for arXiv data models."""
 
-from arxiv_mcp.models import Paper, SearchResult
+from arxiv_mcp.models import Paper
 
 
 def test_paper_creation():

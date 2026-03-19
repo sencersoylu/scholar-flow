@@ -120,16 +120,18 @@ class PubMedClient:
                 if mh.text:
                     mesh_terms.append(mh.text)
 
-            articles.append(Article(
-                pmid=pmid,
-                title=title,
-                authors=authors,
-                journal=journal,
-                year=year,
-                abstract=abstract,
-                doi=doi,
-                mesh_terms=mesh_terms,
-            ))
+            articles.append(
+                Article(
+                    pmid=pmid,
+                    title=title,
+                    authors=authors,
+                    journal=journal,
+                    year=year,
+                    abstract=abstract,
+                    doi=doi,
+                    mesh_terms=mesh_terms,
+                )
+            )
         return articles
 
     async def search_mesh_terms(self, term: str) -> str:
