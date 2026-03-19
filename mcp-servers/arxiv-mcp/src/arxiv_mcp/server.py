@@ -1,13 +1,19 @@
 """arXiv MCP Server — preprint search and retrieval."""
 
+import os
+from pathlib import Path
+
 from mcp.server.fastmcp import FastMCP
 
+from arxiv_mcp.cache import ResponseCache
 from arxiv_mcp.client import ArxivClient
 from arxiv_mcp.models import SearchResult
 
 mcp = FastMCP("arxiv-mcp")
 
 _client = ArxivClient()
+_cache_dir = Path(os.environ.get("SCHOLAR_FLOW_CACHE_DIR", "/tmp/scholar-flow-cache/arxiv"))
+_cache = ResponseCache(cache_dir=_cache_dir, ttl_seconds=86400)
 
 
 @mcp.tool()
@@ -17,6 +23,11 @@ async def search_arxiv(query: str, category: str = "", max_results: int = 20) ->
     Categories include: cs.CL (computation and language), cs.AI (artificial intelligence),
     cs.LG (machine learning), stat.ML, physics, math, q-bio, etc.
     """
+    cache_key = f"search:{query}:{category}:{max_results}"
+    cached = _cache.get(cache_key)
+    if cached:
+        return cached["result"]
+
     papers, total = await _client.search(query, category=category, max_results=max_results)
     if not papers:
         return f"No results found for: {query}" + (f" in category {category}" if category else "")
@@ -27,7 +38,9 @@ async def search_arxiv(query: str, category: str = "", max_results: int = 20) ->
         returned_count=len(papers),
         papers=papers,
     )
-    return result.to_markdown()
+    md = result.to_markdown()
+    _cache.set(cache_key, {"result": md})
+    return md
 
 
 @mcp.tool()
@@ -36,10 +49,17 @@ async def get_paper(arxiv_id: str) -> str:
 
     Returns title, authors, abstract, categories, and links.
     """
+    cache_key = f"paper:{arxiv_id}"
+    cached = _cache.get(cache_key)
+    if cached:
+        return cached["result"]
+
     paper = await _client.get_paper(arxiv_id)
     if not paper:
         return f"No paper found with arXiv ID: {arxiv_id}"
-    return paper.to_markdown()
+    md = paper.to_markdown()
+    _cache.set(cache_key, {"result": md})
+    return md
 
 
 @mcp.tool()
