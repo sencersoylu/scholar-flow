@@ -1,0 +1,49 @@
+[project]
+name = "scholar-flow"
+version = "0.1.0"
+description = "AI-powered academic research pipeline — from literature review to submission-ready manuscript"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Sencer Soylu"}
+]
+keywords = ["academic", "research", "mcp", "claude", "agents", "literature-review", "statistics"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.urls]
+Homepage = "https://github.com/sencersoylu/scholar-flow"
+Documentation = "https://github.com/sencersoylu/scholar-flow/tree/main/docs"
+Repository = "https://github.com/sencersoylu/scholar-flow"
+Issues = "https://github.com/sencersoylu/scholar-flow/issues"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[tool.uv.workspace]
+members = [
+    "mcp-servers/pubmed-mcp",
+    "mcp-servers/arxiv-mcp",
+    "mcp-servers/semantic-scholar-mcp",
+    "mcp-servers/statistics-mcp",
+    "mcp-servers/journal-parser-mcp",
+    "mcp-servers/citation-mcp",
+    "mcp-servers/document-export-mcp",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
