@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        server:
+          - pubmed-mcp
+          - arxiv-mcp
+          - semantic-scholar-mcp
+          - statistics-mcp
+          - journal-parser-mcp
+          - citation-mcp
+          - document-export-mcp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install server dependencies
+        run: |
+          cd mcp-servers/${{ matrix.server }}
+          pip install -e ".[dev]"
+      - name: Run tests
+        run: |
+          cd mcp-servers/${{ matrix.server }}
+          pytest -v
