@@ -29,6 +29,18 @@ dev = [
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
 ]
+statistics = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "matplotlib>=3.7",
+    "lifelines>=0.28",
+]
+all = [
+    "scholar-flow[dev]",
+    "scholar-flow[statistics]",
+]
 
 [tool.uv.workspace]
 members = [
