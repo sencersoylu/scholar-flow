@@ -25,26 +25,42 @@ Scholar Flow is an open-source system of specialized AI agents that guide you th
 
 ### Key Features
 
-- **10 Specialized Agents** — Each agent masters one phase of the research pipeline
-- **40+ Methodology Skills** — PRISMA, CONSORT, STROBE, IMRaD, and more built-in
-- **7 Custom MCP Servers** — PubMed, arXiv, Semantic Scholar, statistics engine, citation manager
-- **Multi-discipline** — Medical/health sciences and engineering/computer science
-- **Journal-adaptive** — Paste any journal's author guidelines, get formatted output
-- **Human-in-the-loop** — You make the decisions, agents do the heavy lifting
+|  | Feature | Description |
+|:--|:--------|:------------|
+| 🤖 | **10 Specialized Agents** | Each agent masters one phase of the research pipeline |
+| 🧠 | **44+ Domain Skills** | PRISMA, CONSORT, STROBE, IMRaD, and more built-in |
+| ⚡ | **7 MCP Servers** | PubMed, arXiv, Semantic Scholar, statistics engine, citation manager |
+| 🔬 | **Multi-discipline** | Medical, engineering, CS, social sciences, economics, law |
+| 📰 | **Journal-adaptive** | Paste any journal's author guidelines, get formatted output |
+| 🧑‍💻 | **Human-in-the-loop** | You make the decisions, agents do the heavy lifting |
+| 📊 | **Runnable Scripts** | 14 Python CLI tools for statistics and citation management |
+| ✅ | **213 Tests** | Comprehensive test suite with real-data validation |
 
 ### The Pipeline
 
+```mermaid
+graph LR
+    A["🔬 Journal\nAnalyzer"] --> B["📚 Literature\nScout"]
+    B --> C["🧪 Research\nDesigner"]
+    C --> D["🧹 Data\nPreparator"]
+    D --> E["📊 Statistician"]
+    E --> F["✍️ Academic\nWriter"]
+    F --> G["📎 Citation\nManager"]
+    G --> H["🔍 Peer\nReviewer"]
+    H --> I["📦 Document\nExport"]
+
+    style A fill:#4A90D9,stroke:#2C5F8A,color:#fff
+    style B fill:#7B68EE,stroke:#5A4BC7,color:#fff
+    style C fill:#50C878,stroke:#3A9A5C,color:#fff
+    style D fill:#FFB347,stroke:#CC8E39,color:#fff
+    style E fill:#FF6B6B,stroke:#CC5555,color:#fff
+    style F fill:#DDA0DD,stroke:#B080B0,color:#fff
+    style G fill:#87CEEB,stroke:#6BA3BC,color:#fff
+    style H fill:#F0E68C,stroke:#C0B870,color:#333
+    style I fill:#98FB98,stroke:#7AC87A,color:#333
 ```
-┌─────────┐   ┌───────────┐   ┌──────────┐   ┌──────┐   ┌─────────────┐
-│ Journal  │──▶│ Literature │──▶│ Research │──▶│ Data │──▶│ Statistician│
-│ Analyzer │   │ Scout      │   │ Designer │   │ Prep │   │             │
-└─────────┘   └───────────┘   └──────────┘   └──────┘   └──────┬──────┘
-                                                               │
-┌──────────┐   ┌──────────┐   ┌──────────┐   ┌─────────┐       │
-│ Document │◀──│   Peer   │◀──│ Citation │◀──│Academic │◀──────┘
-│  Export  │   │ Reviewer │   │ Manager  │   │ Writer  │
-└──────────┘   └──────────┘   └──────────┘   └─────────┘
-```
+
+> **You bring the ideas and data. The agents handle the methodology, formatting, and compliance.**
 
 ## Getting Started
 
@@ -169,98 +185,125 @@ Agent:  ── Academic Writer ──
 
 ## Architecture
 
-Scholar Flow has three layers:
+Scholar Flow has three layers that work together:
+
+```mermaid
+graph TB
+    subgraph ORCH["🎯 Orchestrator — dispatches & coordinates"]
+        direction TB
+    end
+
+    subgraph AGENTS["🤖 Agent Layer"]
+        direction LR
+        A1["Literature Scout"]
+        A2["Research Designer"]
+        A3["Statistician"]
+        A4["Academic Writer"]
+        A5["Peer Reviewer"]
+        A6["+ 6 more agents"]
+    end
+
+    subgraph SKILLS["🧠 Skill Layer — 44+ domain skills"]
+        direction LR
+        S1["📋 Methodology\n12 skills"]
+        S2["🏥 Discipline\n6 skills"]
+        S3["📊 Statistics\n9 skills"]
+        S4["📰 Publication\n8 skills"]
+        S5["✅ Quality\n6 skills"]
+    end
+
+    subgraph MCP["⚡ MCP Server Layer"]
+        direction LR
+        M1["PubMed"]
+        M2["arXiv"]
+        M3["Semantic\nScholar"]
+        M4["Statistics\nEngine"]
+        M5["Citation\nManager"]
+        M6["Journal\nParser"]
+        M7["Document\nExport"]
+    end
+
+    ORCH --> AGENTS
+    AGENTS <--> SKILLS
+    AGENTS <--> MCP
+
+    style ORCH fill:#1a1a2e,stroke:#16213e,color:#e0e0e0
+    style AGENTS fill:#16213e,stroke:#0f3460,color:#e0e0e0
+    style SKILLS fill:#0f3460,stroke:#533483,color:#e0e0e0
+    style MCP fill:#533483,stroke:#e94560,color:#e0e0e0
+```
 
 | Layer | Purpose | Location |
-|-------|---------|----------|
+|:------|:--------|:---------|
 | **Agents** | Orchestrate the research workflow | `agents/` |
 | **Skills** | Provide domain knowledge and methodology | `skills/` |
 | **MCP Servers** | Connect to external APIs and tools | `mcp-servers/` |
-
-```
-┌─────────────────────────────────────────────┐
-│               Orchestrator                   │
-│         (dispatches & coordinates)           │
-├─────────────────────────────────────────────┤
-│  Agent Layer     │  Skill Layer             │
-│  ┌────────────┐  │  ┌────────────────────┐  │
-│  │ Lit Scout  │──┼──│ systematic-review  │  │
-│  │ Researcher │──┼──│ cohort-study       │  │
-│  │ Statistic. │──┼──│ regression-analysis│  │
-│  │ Writer     │──┼──│ ama-style          │  │
-│  │ ...        │  │  │ ...                │  │
-│  └────────────┘  │  └────────────────────┘  │
-├─────────────────────────────────────────────┤
-│  MCP Server Layer                            │
-│  ┌──────────┬──────────┬──────────────────┐  │
-│  │ PubMed   │ arXiv    │ Semantic Scholar │  │
-│  │ Stats    │ Citation │ Journal Parser   │  │
-│  └──────────┴──────────┴──────────────────┘  │
-└─────────────────────────────────────────────┘
-```
 
 See [docs/architecture.md](docs/architecture.md) for the full architecture guide.
 
 ## Agents
 
-| Agent | Role |
-|-------|------|
-| **Orchestrator** | Coordinates the pipeline, manages user interaction |
-| **Journal Analyzer** | Parses journal templates and author guidelines |
-| **Literature Scout** | Searches PubMed, arXiv, Semantic Scholar, Scopus, IEEE Xplore |
-| **Research Designer** | Formulates research questions, hypotheses, study design |
-| **Data Preparator** | Cleans, validates, and prepares datasets for analysis |
-| **Statistician** | Runs statistical analyses with Python/R, generates figures |
-| **Academic Writer** | Writes manuscripts in IMRaD structure per journal format |
-| **Citation Manager** | Manages references via Zotero, validates citations |
-| **Peer Reviewer** | Reviews methodology, statistics, and reporting compliance |
-| **Document Export** | Converts to Word/LaTeX, prepares submission package |
-| **Revision Agent** | Handles journal revision responses point-by-point |
+| | Agent | Role | MCP Tools |
+|:--|:------|:-----|:----------|
+| 🎯 | **Orchestrator** | Coordinates the pipeline, manages user interaction | filesystem |
+| 🔬 | **Journal Analyzer** | Parses journal templates and author guidelines | journal-parser, fetch |
+| 📚 | **Literature Scout** | Searches PubMed, arXiv, Semantic Scholar, Scopus, IEEE Xplore | pubmed, arxiv, semantic-scholar |
+| 🧪 | **Research Designer** | Formulates research questions, hypotheses, study design | filesystem |
+| 🧹 | **Data Preparator** | Cleans, validates, and prepares datasets for analysis | statistics |
+| 📊 | **Statistician** | Runs statistical analyses with Python/R, generates figures | statistics |
+| ✍️ | **Academic Writer** | Writes manuscripts in IMRaD structure per journal format | citation |
+| 📎 | **Citation Manager** | Manages references via Zotero, validates citations | citation, zotero |
+| 🔍 | **Peer Reviewer** | Reviews methodology, statistics, and reporting compliance | statistics |
+| 📦 | **Document Export** | Converts to Word/LaTeX, prepares submission package | document-export |
+| 🔄 | **Revision Agent** | Handles journal revision responses point-by-point | statistics |
 
 ## Skills
 
-Skills are the knowledge layer — methodology protocols, discipline standards, and formatting rules that agents load on demand.
+Skills are the knowledge layer — methodology protocols, discipline standards, and formatting rules that agents load on demand. Each skill is a folder with a `SKILL.md` definition and optional `scripts/` for runnable analysis tools.
 
-| Category | Count | Examples |
-|----------|-------|---------|
-| **Profile** | 3 | researcher-profile, writing-preferences, tool-preferences |
-| **Methodology** | 12 | systematic-review, meta-analysis, RCT, cohort-study, case-report |
-| **Discipline** | 6 | medical, engineering, CS, social sciences, economics, law |
-| **Statistics** | 9 | inferential-statistics, regression, survival-analysis, bayesian |
-| **Publication** | 7 | ama-style, ieee-style, acm-style, journal-selector |
-| **Quality** | 6 | peer-review, statistical-review, reporting-checklist |
+| | Category | Count | Examples | Scripts |
+|:--|:---------|:------|:---------|:--------|
+| 👤 | **Profile** | 3 | researcher-profile, writing-preferences, tool-preferences | — |
+| 📋 | **Methodology** | 12 | systematic-review, meta-analysis, RCT, cohort-study | — |
+| 🏛️ | **Discipline** | 6 | medical, engineering, CS, social sciences, economics, law | — |
+| 📊 | **Statistics** | 9 | inferential, regression, survival-analysis, bayesian, power | 11 scripts |
+| 📰 | **Publication** | 8 | ama-style, ieee-style, acm-style, citation-tools | 3 scripts |
+| ✅ | **Quality** | 6 | peer-review, statistical-review, reporting-checklist | — |
 
-**Adding your own skill?** See [docs/skill-authoring.md](docs/skill-authoring.md).
+> **Adding your own skill?** See [docs/skill-authoring.md](docs/skill-authoring.md).
 
 ## MCP Servers
 
-| Server | API | Purpose |
-|--------|-----|---------|
-| `pubmed-mcp` | NCBI E-utilities | Medical literature search, MeSH terms |
-| `arxiv-mcp` | arXiv API | Preprint search, PDF/LaTeX retrieval |
-| `semantic-scholar-mcp` | Semantic Scholar | Citation graphs, related papers |
-| `statistics-mcp` | Python/R runtime | Statistical analysis execution |
-| `journal-parser-mcp` | python-docx, LaTeX parser | Template parsing |
-| `citation-mcp` | CrossRef, BibTeX | Reference management |
-| `document-export-mcp` | Pandoc, python-docx | Final document generation |
+| | Server | API | Purpose |
+|:--|:-------|:----|:--------|
+| 🔎 | `pubmed-mcp` | NCBI E-utilities | Medical literature search, MeSH terms |
+| 📄 | `arxiv-mcp` | arXiv API | Preprint search, PDF/LaTeX retrieval |
+| 🕸️ | `semantic-scholar-mcp` | Semantic Scholar | Citation graphs, related papers |
+| 📊 | `statistics-mcp` | Python/R runtime | Statistical analysis execution |
+| 📰 | `journal-parser-mcp` | python-docx, LaTeX | Template parsing |
+| 📎 | `citation-mcp` | CrossRef, BibTeX | Reference management |
+| 📦 | `document-export-mcp` | Pandoc, python-docx | Final document generation |
 
 ## Supported Disciplines
 
-### Medical / Health Sciences
-RCT, cohort studies, case-control, systematic reviews, meta-analyses, case reports. CONSORT, STROBE, PRISMA, CARE checklists. MeSH terminology, ICMJE standards.
-
-### Engineering / Computer Science
-Experimental studies, computational studies, algorithm benchmarks, ablation studies. IEEE/ACM standards, artifact evaluation, reproducibility requirements.
+| Discipline | Methodologies | Standards & Checklists |
+|:-----------|:-------------|:----------------------|
+| 🏥 **Medical / Health Sciences** | RCT, cohort, case-control, systematic review, meta-analysis | CONSORT, STROBE, PRISMA, CARE, MeSH, ICMJE |
+| ⚙️ **Engineering / Computer Science** | Experimental, computational, benchmarks, ablation | IEEE/ACM standards, artifact evaluation |
+| 🧠 **Social Sciences** | Survey, experimental, qualitative, mixed-methods | APA 7th ed., JARS, JARS-Qual, JARS-Mixed |
+| 📈 **Economics** | IV, RDD, DiD, panel data, time series | AEA guidelines, NBER conventions, replication packages |
+| ⚖️ **Law** | Doctrinal, comparative, empirical legal studies | Bluebook, OSCOLA, McGill Guide |
 
 ## How Scholar Flow Compares
 
 | Feature | Scholar Flow | claude-scientific-skills | Manual Workflow |
-|---------|-------------|------------------------|-----------------|
-| Full pipeline orchestration | Yes | No (skills only) | No |
-| MCP server integration | 7 servers | No | N/A |
-| Runnable analysis scripts | Yes | Yes | Write your own |
-| Multi-discipline | Medical + Engineering + CS | Science-focused | Varies |
-| Journal-adaptive formatting | Yes | Partial | Manual |
+|:--------|:------------|:------------------------|:----------------|
+| Full pipeline orchestration | ✅ 10 agents | ❌ Skills only | ❌ |
+| MCP server integration | ✅ 7 servers | ❌ | N/A |
+| Runnable analysis scripts | ✅ 14 scripts | ✅ | Write your own |
+| Multi-discipline | ✅ 6 disciplines | 🔶 Science-focused | Varies |
+| Journal-adaptive formatting | ✅ | 🔶 Partial | Manual |
+| Test coverage | ✅ 213 tests | ❌ | N/A |
 
 ## Contributing
 
