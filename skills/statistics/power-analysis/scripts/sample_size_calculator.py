@@ -16,11 +16,16 @@ Dependencies:
     numpy, scipy, statsmodels
 
 Example usage (CLI):
-    python sample_size_calculator.py --test-type t-test-ind --effect-size 0.5 --alpha 0.05 --power 0.80
-    python sample_size_calculator.py --test-type anova --effect-size 0.25 --alpha 0.05 --power 0.80 --groups 3
-    python sample_size_calculator.py --test-type chi-square --effect-size 0.3 --alpha 0.05 --power 0.80 --df 2
-    python sample_size_calculator.py --test-type correlation --effect-size 0.3 --alpha 0.05 --power 0.80
-    python sample_size_calculator.py --test-type regression --effect-size 0.15 --alpha 0.05 --power 0.80 --predictors 5
+    python sample_size_calculator.py --test-type t-test-ind \
+        --effect-size 0.5 --alpha 0.05 --power 0.80
+    python sample_size_calculator.py --test-type anova \
+        --effect-size 0.25 --alpha 0.05 --power 0.80 --groups 3
+    python sample_size_calculator.py --test-type chi-square \
+        --effect-size 0.3 --alpha 0.05 --power 0.80 --df 2
+    python sample_size_calculator.py --test-type correlation \
+        --effect-size 0.3 --alpha 0.05 --power 0.80
+    python sample_size_calculator.py --test-type regression \
+        --effect-size 0.15 --alpha 0.05 --power 0.80 --predictors 5
 
 Interactive mode:
     python sample_size_calculator.py --interactive
@@ -34,7 +39,6 @@ import sys
 
 import numpy as np
 from scipy import stats
-
 
 # ---------------------------------------------------------------------------
 # Effect size guidelines
@@ -64,6 +68,7 @@ def print_effect_guide(test_type: str) -> None:
 # Sample size functions
 # ---------------------------------------------------------------------------
 
+
 def ss_ttest_ind(d: float, alpha: float, power: float, ratio: float = 1.0) -> dict:
     """Sample size for independent two-sample t-test.
 
@@ -80,8 +85,11 @@ def ss_ttest_ind(d: float, alpha: float, power: float, ratio: float = 1.0) -> di
     """
     try:
         from statsmodels.stats.power import TTestIndPower
+
         analysis = TTestIndPower()
-        n1 = analysis.solve_power(effect_size=d, alpha=alpha, power=power, ratio=ratio, alternative="two-sided")
+        n1 = analysis.solve_power(
+            effect_size=d, alpha=alpha, power=power, ratio=ratio, alternative="two-sided"
+        )
         n1 = math.ceil(n1)
         n2 = math.ceil(n1 * ratio)
         return {"n_per_group_1": n1, "n_per_group_2": n2, "total": n1 + n2}
@@ -98,6 +106,7 @@ def ss_ttest_paired(d: float, alpha: float, power: float) -> dict:
     """Sample size for paired t-test."""
     try:
         from statsmodels.stats.power import TTestPower
+
         analysis = TTestPower()
         n = analysis.solve_power(effect_size=d, alpha=alpha, power=power, alternative="two-sided")
         n = math.ceil(n)
@@ -121,6 +130,7 @@ def ss_anova(f: float, alpha: float, power: float, k: int) -> dict:
     """
     try:
         from statsmodels.stats.power import FTestAnovaPower
+
         analysis = FTestAnovaPower()
         n_per = analysis.solve_power(effect_size=f, alpha=alpha, power=power, k_groups=k)
         n_per = math.ceil(n_per)
@@ -129,7 +139,7 @@ def ss_anova(f: float, alpha: float, power: float, k: int) -> dict:
         # Rough approximation using non-central F
         z_alpha = stats.norm.ppf(1 - alpha / 2)
         z_beta = stats.norm.ppf(power)
-        n_per = math.ceil(((z_alpha + z_beta) ** 2) / (f ** 2) + (k - 1) / (2 * k))
+        n_per = math.ceil(((z_alpha + z_beta) ** 2) / (f**2) + (k - 1) / (2 * k))
         return {"n_per_group": n_per, "groups": k, "total": n_per * k}
 
 
@@ -143,6 +153,7 @@ def ss_chi_square(w: float, alpha: float, power: float, df: int) -> dict:
     """
     try:
         from statsmodels.stats.power import GofChisquarePower
+
         analysis = GofChisquarePower()
         n = analysis.solve_power(effect_size=w, alpha=alpha, power=power, n_bins=df + 1)
         n = math.ceil(n)
@@ -174,6 +185,7 @@ def ss_regression(f2: float, alpha: float, power: float, n_predictors: int) -> d
     """
     try:
         from statsmodels.stats.power import FTestPower
+
         # Convert f^2 to f for the library
         f = np.sqrt(f2)
         analysis = FTestPower()
@@ -198,6 +210,7 @@ def ss_regression(f2: float, alpha: float, power: float, n_predictors: int) -> d
 # Display
 # ---------------------------------------------------------------------------
 
+
 def display_result(test_type: str, params: dict, result: dict) -> None:
     """Pretty-print the sample size calculation result."""
     print()
@@ -220,6 +233,7 @@ def display_result(test_type: str, params: dict, result: dict) -> None:
 # ---------------------------------------------------------------------------
 # Interactive mode
 # ---------------------------------------------------------------------------
+
 
 def interactive_mode() -> None:
     """Run an interactive session asking the user for parameters."""
@@ -283,7 +297,7 @@ def interactive_mode() -> None:
         params["predictors"] = n_pred
         result = ss_regression(effect_size, alpha, power, n_pred)
     else:
-        print(f"Error: Unsupported test type.", file=sys.stderr)
+        print("Error: Unsupported test type.", file=sys.stderr)
         sys.exit(1)
 
     display_result(test_type, params, result)
@@ -292,6 +306,7 @@ def interactive_mode() -> None:
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -314,10 +329,14 @@ Examples:
         help="Type of statistical test.",
     )
     parser.add_argument("--effect-size", type=float, help="Expected effect size.")
-    parser.add_argument("--alpha", type=float, default=0.05, help="Significance level (default: 0.05).")
+    parser.add_argument(
+        "--alpha", type=float, default=0.05, help="Significance level (default: 0.05)."
+    )
     parser.add_argument("--power", type=float, default=0.80, help="Desired power (default: 0.80).")
     # Test-specific
-    parser.add_argument("--ratio", type=float, default=1.0, help="Allocation ratio n2/n1 for t-test-ind.")
+    parser.add_argument(
+        "--ratio", type=float, default=1.0, help="Allocation ratio n2/n1 for t-test-ind."
+    )
     parser.add_argument("--groups", type=int, help="Number of groups (ANOVA).")
     parser.add_argument("--df", type=int, help="Degrees of freedom (chi-square).")
     parser.add_argument("--predictors", type=int, help="Number of predictors (regression).")

@@ -48,6 +48,7 @@ def interpret_eta(es: float) -> str:
 # One-way ANOVA
 # ---------------------------------------------------------------------------
 
+
 def oneway_anova(
     df: pd.DataFrame,
     dependent: str,
@@ -103,11 +104,14 @@ def oneway_anova(
 
     print("ANOVA Table:")
     print(f"  {'Source':<15} {'SS':>12} {'df':>6} {'MS':>12} {'F':>10} {'p':>10}")
-    print(f"  {'-'*65}")
+    print(f"  {'-' * 65}")
     ms_between = ss_between / df_between if df_between > 0 else 0
     ss_within = ss_total - ss_between
     ms_within = ss_within / df_within if df_within > 0 else 0
-    print(f"  {'Between':<15} {ss_between:>12.4f} {df_between:>6} {ms_between:>12.4f} {f_stat:>10.4f} {p_val:>10.6f}")
+    print(
+        f"  {'Between':<15} {ss_between:>12.4f} {df_between:>6}"
+        f" {ms_between:>12.4f} {f_stat:>10.4f} {p_val:>10.6f}"
+    )
     print(f"  {'Within':<15} {ss_within:>12.4f} {df_within:>6} {ms_within:>12.4f}")
     print(f"  {'Total':<15} {ss_total:>12.4f} {n_total - 1:>6}")
     print()
@@ -115,7 +119,10 @@ def oneway_anova(
     print()
 
     if p_val < alpha:
-        print(f"Result: Statistically significant (F({df_between},{df_within}) = {f_stat:.4f}, p = {p_val:.6f}).")
+        print(
+            f"Result: Statistically significant "
+            f"(F({df_between},{df_within}) = {f_stat:.4f}, p = {p_val:.6f})."
+        )
         print()
 
         # Post-hoc tests
@@ -149,7 +156,7 @@ def _bonferroni(group_data: list, groups: list, alpha: float) -> None:
 
     print(f"Bonferroni-corrected pairwise t-tests (adjusted alpha = {adj_alpha:.4f}):")
     print(f"  {'Comparison':<30} {'t':>10} {'p (raw)':>12} {'p (adj)':>12} {'Sig':>6}")
-    print(f"  {'-'*70}")
+    print(f"  {'-' * 70}")
     for i, j in pairs:
         t_stat, p_raw = stats.ttest_ind(group_data[i], group_data[j])
         p_adj = min(p_raw * n_comparisons, 1.0)
@@ -162,6 +169,7 @@ def _bonferroni(group_data: list, groups: list, alpha: float) -> None:
 # ---------------------------------------------------------------------------
 # Two-way ANOVA
 # ---------------------------------------------------------------------------
+
 
 def twoway_anova(
     df: pd.DataFrame,
@@ -218,6 +226,7 @@ def twoway_anova(
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(

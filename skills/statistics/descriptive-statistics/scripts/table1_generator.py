@@ -29,10 +29,10 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _is_normal(data: np.ndarray, alpha: float = 0.05) -> bool:
     """Return True if the Shapiro-Wilk test does not reject normality."""
@@ -62,6 +62,7 @@ def _format_n_pct(count: int, total: int, decimals: int = 1) -> str:
 # Row builders
 # ---------------------------------------------------------------------------
 
+
 def continuous_row(
     df: pd.DataFrame,
     var: str,
@@ -79,9 +80,7 @@ def continuous_row(
         group_data[g] = vals
 
     # Determine normality across groups
-    all_normal = all(
-        _is_normal(v.values) for v in group_data.values() if len(v) >= 3
-    )
+    all_normal = all(_is_normal(v.values) for v in group_data.values() if len(v) >= 3)
 
     # Format each group
     for g in groups:
@@ -194,6 +193,7 @@ def categorical_row(
 # Main
 # ---------------------------------------------------------------------------
 
+
 def build_table1(
     df: pd.DataFrame,
     group_col: str,
@@ -268,9 +268,7 @@ Examples:
     parser.add_argument(
         "--group-column", "-g", required=True, help="Column defining comparison groups."
     )
-    parser.add_argument(
-        "--continuous", nargs="+", default=None, help="Continuous variable names."
-    )
+    parser.add_argument("--continuous", nargs="+", default=None, help="Continuous variable names.")
     parser.add_argument(
         "--categorical", nargs="+", default=None, help="Categorical variable names."
     )

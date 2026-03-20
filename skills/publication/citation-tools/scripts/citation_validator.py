@@ -29,6 +29,7 @@ from typing import TextIO
 # Data model
 # ---------------------------------------------------------------------------
 
+
 class Severity(Enum):
     WARNING = "WARNING"
     ERROR = "ERROR"
@@ -61,9 +62,7 @@ class BibEntry:
 # ---------------------------------------------------------------------------
 
 # Matches the opening of an entry: @type{key,
-_ENTRY_START = re.compile(
-    r"@\s*(\w+)\s*\{\s*([^,\s]+)\s*,", re.IGNORECASE
-)
+_ENTRY_START = re.compile(r"@\s*(\w+)\s*\{\s*([^,\s]+)\s*,", re.IGNORECASE)
 
 # Types that are not actual reference entries
 _NON_ENTRY_TYPES = {"string", "preamble", "comment"}
@@ -213,12 +212,14 @@ def validate(entries: list[BibEntry]) -> list[Issue]:
 
         # -- Duplicate keys --
         if key in seen_keys:
-            issues.append(Issue(
-                Severity.ERROR,
-                key,
-                f"Duplicate citation key (first seen at line {seen_keys[key]}, "
-                f"duplicate at line {entry.line_number})",
-            ))
+            issues.append(
+                Issue(
+                    Severity.ERROR,
+                    key,
+                    f"Duplicate citation key (first seen at line {seen_keys[key]}, "
+                    f"duplicate at line {entry.line_number})",
+                )
+            )
         else:
             seen_keys[key] = entry.line_number
 
@@ -226,47 +227,57 @@ def validate(entries: list[BibEntry]) -> list[Issue]:
         required = REQUIRED_FIELDS.get(entry.entry_type, ["author", "title", "year"])
         for rf in required:
             if rf not in entry.fields or not entry.fields[rf].strip():
-                issues.append(Issue(
-                    Severity.ERROR,
-                    key,
-                    f"Missing required field '{rf}' for @{entry.entry_type}",
-                ))
+                issues.append(
+                    Issue(
+                        Severity.ERROR,
+                        key,
+                        f"Missing required field '{rf}' for @{entry.entry_type}",
+                    )
+                )
 
         # -- Year format --
         year_val = entry.fields.get("year", "")
         if year_val and not re.fullmatch(r"\d{4}", year_val.strip()):
-            issues.append(Issue(
-                Severity.WARNING,
-                key,
-                f"Year field has unexpected format: '{year_val}' (expected YYYY)",
-            ))
+            issues.append(
+                Issue(
+                    Severity.WARNING,
+                    key,
+                    f"Year field has unexpected format: '{year_val}' (expected YYYY)",
+                )
+            )
 
         # -- Missing DOI --
         if "doi" not in entry.fields or not entry.fields["doi"].strip():
-            issues.append(Issue(
-                Severity.WARNING,
-                key,
-                "No DOI field present",
-            ))
+            issues.append(
+                Issue(
+                    Severity.WARNING,
+                    key,
+                    "No DOI field present",
+                )
+            )
 
         # -- Encoding: detect common mojibake / raw LaTeX remnants --
         for fname, fval in entry.fields.items():
             if re.search(r"[\x80-\x9f]", fval):
-                issues.append(Issue(
-                    Severity.WARNING,
-                    key,
-                    f"Possible encoding issue in field '{fname}' "
-                    f"(contains control characters in 0x80-0x9F range)",
-                ))
+                issues.append(
+                    Issue(
+                        Severity.WARNING,
+                        key,
+                        f"Possible encoding issue in field '{fname}' "
+                        f"(contains control characters in 0x80-0x9F range)",
+                    )
+                )
 
         # -- Empty fields --
         for fname, fval in entry.fields.items():
             if fval.strip() == "":
-                issues.append(Issue(
-                    Severity.WARNING,
-                    key,
-                    f"Field '{fname}' is present but empty",
-                ))
+                issues.append(
+                    Issue(
+                        Severity.WARNING,
+                        key,
+                        f"Field '{fname}' is present but empty",
+                    )
+                )
 
     return issues
 
@@ -274,6 +285,7 @@ def validate(entries: list[BibEntry]) -> list[Issue]:
 # ---------------------------------------------------------------------------
 # Reporting
 # ---------------------------------------------------------------------------
+
 
 def _print_report(
     entries: list[BibEntry],
@@ -308,15 +320,13 @@ def _print_report(
     for issue in issues:
         affected.setdefault(issue.entry_key, []).append(issue)
     clean = len(entries) - len(affected)
-    out.write(
-        f"Summary: {clean}/{len(entries)} entries are clean, "
-        f"{len(affected)} have issues.\n"
-    )
+    out.write(f"Summary: {clean}/{len(entries)} entries are clean, {len(affected)} have issues.\n")
 
 
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -329,7 +339,8 @@ def _build_parser() -> argparse.ArgumentParser:
         """),
     )
     parser.add_argument(
-        "--input", "-i",
+        "--input",
+        "-i",
         required=True,
         help="Path to the .bib file to validate.",
     )

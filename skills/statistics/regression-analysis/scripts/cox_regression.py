@@ -10,7 +10,8 @@ Dependencies:
     numpy, pandas, lifelines, matplotlib (optional, for plots)
 
 Example usage:
-    python cox_regression.py --input data.csv --duration time --event status --predictors age treatment
+    python cox_regression.py --input data.csv --duration time \
+        --event status --predictors age treatment
     python cox_regression.py --input data.csv --duration os_months --event os_event \\
         --predictors age stage grade --km-strata treatment --km-plot km.png
 """
@@ -21,7 +22,6 @@ import argparse
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 
@@ -38,10 +38,14 @@ Examples:
     )
     parser.add_argument("--input", "-i", required=True, help="Path to CSV file.")
     parser.add_argument("--duration", "-d", required=True, help="Time-to-event column.")
-    parser.add_argument("--event", "-e", required=True, help="Event indicator column (1=event, 0=censored).")
+    parser.add_argument(
+        "--event", "-e", required=True, help="Event indicator column (1=event, 0=censored)."
+    )
     parser.add_argument("--predictors", "-p", nargs="+", required=True, help="Predictor variables.")
     parser.add_argument("--output", "-o", default=None, help="Save hazard ratio table to CSV.")
-    parser.add_argument("--km-strata", default=None, help="Categorical variable for KM stratification.")
+    parser.add_argument(
+        "--km-strata", default=None, help="Categorical variable for KM stratification."
+    )
     parser.add_argument("--km-plot", default=None, help="Save Kaplan-Meier plot to file.")
     parser.add_argument("--separator", "--sep", default=",", help="CSV delimiter.")
     args = parser.parse_args()
@@ -116,7 +120,7 @@ Examples:
 
     print("Hazard Ratios:")
     print(f"  {'Variable':<20} {'HR':>8} {'95% CI':>22} {'p-value':>10}")
-    print(f"  {'-'*62}")
+    print(f"  {'-' * 62}")
     for _, row in hr_df.iterrows():
         ci = f"[{row['HR 95% CI Lower']:.3f} - {row['HR 95% CI Upper']:.3f}]"
         sig = " *" if row["p-value"] < 0.05 else ""
@@ -157,8 +161,10 @@ Examples:
             g1 = sub[sub[args.km_strata] == strata_vals[0]]
             g2 = sub[sub[args.km_strata] == strata_vals[1]]
             lr = logrank_test(
-                g1[args.duration], g2[args.duration],
-                event_observed_A=g1[args.event], event_observed_B=g2[args.event],
+                g1[args.duration],
+                g2[args.duration],
+                event_observed_A=g1[args.event],
+                event_observed_B=g2[args.event],
             )
             print(f"  Log-rank test: chi2 = {lr.test_statistic:.4f}, p = {lr.p_value:.6f}")
 

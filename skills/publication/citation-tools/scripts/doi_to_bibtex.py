@@ -11,7 +11,8 @@ Examples
     python doi_to_bibtex.py --doi 10.1038/s41586-020-2649-2
 
     # Multiple DOIs written to a file
-    python doi_to_bibtex.py --doi 10.1038/s41586-020-2649-2 10.1126/science.abc4346 --output refs.bib
+    python doi_to_bibtex.py --doi 10.1038/s41586-020-2649-2 \
+        10.1126/science.abc4346 --output refs.bib
 """
 
 from __future__ import annotations
@@ -43,9 +44,7 @@ def _fetch_crossref(doi: str) -> dict[str, Any]:
     except urllib.error.HTTPError as exc:
         if exc.code == 404:
             raise ValueError(f"DOI not found: {doi}") from exc
-        raise RuntimeError(
-            f"CrossRef returned HTTP {exc.code} for DOI {doi}"
-        ) from exc
+        raise RuntimeError(f"CrossRef returned HTTP {exc.code} for DOI {doi}") from exc
     except urllib.error.URLError as exc:
         raise RuntimeError(
             f"Network error while querying CrossRef for DOI {doi}: {exc.reason}"
@@ -56,6 +55,7 @@ def _fetch_crossref(doi: str) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # BibTeX formatting
 # ---------------------------------------------------------------------------
+
 
 def _make_cite_key(meta: dict[str, Any]) -> str:
     """Generate a readable citation key like ``AuthorYYYY``."""
@@ -176,6 +176,7 @@ def _format_bibtex(meta: dict[str, Any]) -> str:
 # Public API
 # ---------------------------------------------------------------------------
 
+
 def doi_to_bibtex(doi: str) -> str:
     """Fetch metadata for *doi* from CrossRef and return a BibTeX string.
 
@@ -204,6 +205,7 @@ def doi_to_bibtex(doi: str) -> str:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Convert DOIs to BibTeX entries via the CrossRef API.",
@@ -221,7 +223,8 @@ def _build_parser() -> argparse.ArgumentParser:
         help="One or more DOIs to look up.",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         default=None,
         help="Output file path.  Defaults to stdout.",
     )
@@ -254,8 +257,7 @@ def main(argv: list[str] | None = None) -> int:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(output_text)
         print(
-            f"Wrote {len(entries)} entr{'y' if len(entries) == 1 else 'ies'} "
-            f"to {args.output}",
+            f"Wrote {len(entries)} entr{'y' if len(entries) == 1 else 'ies'} to {args.output}",
             file=sys.stderr,
         )
     else:

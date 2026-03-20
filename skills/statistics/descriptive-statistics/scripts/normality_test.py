@@ -126,9 +126,7 @@ def generate_qq_plot(data: np.ndarray, column_name: str, output_path: str) -> No
         matplotlib.use("Agg")  # non-interactive backend
         import matplotlib.pyplot as plt
     except ImportError:
-        print(
-            "Warning: matplotlib is not installed; skipping Q-Q plot.", file=sys.stderr
-        )
+        print("Warning: matplotlib is not installed; skipping Q-Q plot.", file=sys.stderr)
         return
 
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -154,9 +152,7 @@ Examples:
         """,
     )
     parser.add_argument("--input", "-i", required=True, help="Path to input CSV.")
-    parser.add_argument(
-        "--column", "-c", required=True, help="Column name to test."
-    )
+    parser.add_argument("--column", "-c", required=True, help="Column name to test.")
     parser.add_argument(
         "--alpha",
         "-a",
@@ -170,9 +166,7 @@ Examples:
         default=None,
         help="File path to save Q-Q plot (e.g. qq.png).",
     )
-    parser.add_argument(
-        "--separator", "--sep", default=",", help="CSV delimiter (default: comma)."
-    )
+    parser.add_argument("--separator", "--sep", default=",", help="CSV delimiter (default: comma).")
     args = parser.parse_args()
 
     # --- Load data -----------------------------------------------------------

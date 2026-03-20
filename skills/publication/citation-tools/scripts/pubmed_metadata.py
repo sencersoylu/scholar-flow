@@ -28,15 +28,13 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass, field
-from typing import Any
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
 EFETCH_URL = (
-    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-    "?db=pubmed&retmode=xml&id={pmids}"
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id={pmids}"
 )
 USER_AGENT = "scholar-flow-citation-tools/0.1"
 
@@ -44,6 +42,7 @@ USER_AGENT = "scholar-flow-citation-tools/0.1"
 # ---------------------------------------------------------------------------
 # Data model
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class ArticleMeta:
@@ -67,6 +66,7 @@ class ArticleMeta:
 # ---------------------------------------------------------------------------
 # XML parsing helpers
 # ---------------------------------------------------------------------------
+
 
 def _text(element: ET.Element | None, path: str, default: str = "") -> str:
     """Safely extract text from an XML element at *path*."""
@@ -171,6 +171,7 @@ def _parse_article(article_el: ET.Element) -> ArticleMeta:
 # API interaction
 # ---------------------------------------------------------------------------
 
+
 def fetch_pubmed(pmids: list[str]) -> list[ArticleMeta]:
     """Fetch article metadata from PubMed for the given PMIDs.
 
@@ -211,6 +212,7 @@ def fetch_pubmed(pmids: list[str]) -> list[ArticleMeta]:
 # ---------------------------------------------------------------------------
 # Output formatters
 # ---------------------------------------------------------------------------
+
 
 def _to_bibtex(meta: ArticleMeta) -> str:
     """Format a single ArticleMeta as a BibTeX @article entry."""
@@ -291,6 +293,7 @@ def _to_text(meta: ArticleMeta) -> str:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Extract citation metadata from PubMed IDs via NCBI E-utilities.",
@@ -309,13 +312,15 @@ def _build_parser() -> argparse.ArgumentParser:
         help="One or more PubMed IDs to look up.",
     )
     parser.add_argument(
-        "--format", "-f",
+        "--format",
+        "-f",
         choices=["bibtex", "json", "text"],
         default="bibtex",
         help="Output format (default: bibtex).",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         default=None,
         help="Output file path.  Defaults to stdout.",
     )

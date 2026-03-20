@@ -109,9 +109,7 @@ Examples:
   %(prog)s --input data.csv --output summary.csv --decimals 2
         """,
     )
-    parser.add_argument(
-        "--input", "-i", required=True, help="Path to the input CSV file."
-    )
+    parser.add_argument("--input", "-i", required=True, help="Path to the input CSV file.")
     parser.add_argument(
         "--columns",
         "-c",
@@ -155,9 +153,7 @@ Examples:
     if args.columns:
         missing_cols = [c for c in args.columns if c not in df.columns]
         if missing_cols:
-            print(
-                f"Error: columns not found in data: {missing_cols}", file=sys.stderr
-            )
+            print(f"Error: columns not found in data: {missing_cols}", file=sys.stderr)
             print(f"Available columns: {list(df.columns)}", file=sys.stderr)
             sys.exit(1)
         selected = args.columns
@@ -185,9 +181,7 @@ Examples:
     # --- Display -------------------------------------------------------------
     display_df = results_df.copy()
     for col in display_df.columns:
-        display_df[col] = display_df[col].apply(
-            lambda v: format_value(v, args.decimals)
-        )
+        display_df[col] = display_df[col].apply(lambda v: format_value(v, args.decimals))
 
     if HAS_TABULATE:
         print(

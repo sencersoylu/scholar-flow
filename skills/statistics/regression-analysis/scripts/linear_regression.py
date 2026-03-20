@@ -12,8 +12,10 @@ Dependencies:
 
 Example usage:
     python linear_regression.py --input data.csv --target y --predictors x1 x2 x3
-    python linear_regression.py --input data.csv --target bmi --predictors age sex height --plots residuals.png
-    python linear_regression.py --input data.csv --target score --predictors age income --output results.csv
+    python linear_regression.py --input data.csv --target bmi \
+        --predictors age sex height --plots residuals.png
+    python linear_regression.py --input data.csv --target score \
+        --predictors age income --output results.csv
 """
 
 from __future__ import annotations
@@ -27,12 +29,12 @@ import pandas as pd
 from scipy import stats
 
 
-def compute_vif(X: pd.DataFrame) -> pd.DataFrame:
+def compute_vif(features: pd.DataFrame) -> pd.DataFrame:
     """Compute Variance Inflation Factors for each predictor.
 
     Parameters
     ----------
-    X : pd.DataFrame
+    features : pd.DataFrame
         Design matrix (without intercept).
 
     Returns
@@ -42,10 +44,10 @@ def compute_vif(X: pd.DataFrame) -> pd.DataFrame:
     from statsmodels.stats.outliers_influence import variance_inflation_factor
 
     vif_data = []
-    X_arr = X.values.astype(float)
-    for i, col in enumerate(X.columns):
+    feat_arr = features.values.astype(float)
+    for i, col in enumerate(features.columns):
         try:
-            vif_val = variance_inflation_factor(X_arr, i)
+            vif_val = variance_inflation_factor(feat_arr, i)
         except Exception:
             vif_val = np.nan
         vif_data.append({"Variable": col, "VIF": vif_val})
@@ -119,7 +121,8 @@ def generate_diagnostic_plots(model, output_path: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="OLS linear regression with diagnostics (VIF, Cook's distance, residual plots).",
+        description="OLS linear regression with diagnostics "
+        "(VIF, Cook's distance, residual plots).",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -131,14 +134,18 @@ Examples:
     parser.add_argument("--target", "-t", required=True, help="Target (dependent) variable.")
     parser.add_argument("--predictors", "-p", nargs="+", required=True, help="Predictor variables.")
     parser.add_argument("--output", "-o", default=None, help="Save coefficient table to CSV.")
-    parser.add_argument("--plots", default=None, help="Save diagnostic plots to file (e.g. diag.png).")
+    parser.add_argument(
+        "--plots", default=None, help="Save diagnostic plots to file (e.g. diag.png)."
+    )
     parser.add_argument("--separator", "--sep", default=",", help="CSV delimiter.")
     args = parser.parse_args()
 
     try:
         import statsmodels.api as sm
     except ImportError:
-        print("Error: statsmodels is required. Install with: pip install statsmodels", file=sys.stderr)
+        print(
+            "Error: statsmodels is required. Install with: pip install statsmodels", file=sys.stderr
+        )
         sys.exit(1)
 
     # --- Load data -----------------------------------------------------------
@@ -166,11 +173,11 @@ Examples:
         sys.exit(1)
 
     y = sub[args.target].astype(float)
-    X = sub[args.predictors].astype(float)
-    X_const = sm.add_constant(X)
+    features = sub[args.predictors].astype(float)
+    features_const = sm.add_constant(features)
 
     # --- Fit model -----------------------------------------------------------
-    model = sm.OLS(y, X_const).fit()
+    model = sm.OLS(y, features_const).fit()
 
     print("=" * 70)
     print("OLS REGRESSION RESULTS")
@@ -181,7 +188,7 @@ Examples:
     # --- VIF -----------------------------------------------------------------
     if len(args.predictors) > 1:
         print("Variance Inflation Factors (VIF):")
-        vif_df = compute_vif(X)
+        vif_df = compute_vif(features)
         for _, row in vif_df.iterrows():
             flag = " *** HIGH" if row["VIF"] > 10 else (" * moderate" if row["VIF"] > 5 else "")
             print(f"  {row['Variable']:<20} VIF = {row['VIF']:.2f}{flag}")

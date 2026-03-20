@@ -11,7 +11,8 @@ Dependencies:
 Example usage:
     python logistic_regression.py --input data.csv --target outcome --predictors age sex bmi
     python logistic_regression.py --input data.csv --target disease --predictors x1 x2 --roc roc.png
-    python logistic_regression.py --input data.csv --target y --predictors x1 x2 --output results.csv
+    python logistic_regression.py --input data.csv --target y \
+        --predictors x1 x2 --output results.csv
 """
 
 from __future__ import annotations
@@ -39,7 +40,9 @@ Examples:
     parser.add_argument("--predictors", "-p", nargs="+", required=True, help="Predictor variables.")
     parser.add_argument("--output", "-o", default=None, help="Save OR table to CSV.")
     parser.add_argument("--roc", default=None, help="Save ROC curve plot to file.")
-    parser.add_argument("--threshold", type=float, default=0.5, help="Classification threshold (default: 0.5).")
+    parser.add_argument(
+        "--threshold", type=float, default=0.5, help="Classification threshold (default: 0.5)."
+    )
     parser.add_argument("--separator", "--sep", default=",", help="CSV delimiter.")
     args = parser.parse_args()
 
@@ -82,8 +85,8 @@ Examples:
         print(f"Error: Target must be binary (0/1). Found values: {unique_vals}", file=sys.stderr)
         sys.exit(1)
 
-    X = sub[args.predictors].astype(float)
-    X_const = sm.add_constant(X)
+    features = sub[args.predictors].astype(float)
+    features_const = sm.add_constant(features)
 
     n = len(sub)
     n_events = int(y.sum())
@@ -95,7 +98,7 @@ Examples:
 
     # --- Fit model -----------------------------------------------------------
     try:
-        model = sm.Logit(y, X_const).fit(disp=0)
+        model = sm.Logit(y, features_const).fit(disp=0)
     except Exception as exc:
         print(f"Error fitting model: {exc}", file=sys.stderr)
         sys.exit(1)
@@ -122,20 +125,22 @@ Examples:
 
     print("Odds Ratios:")
     print(f"  {'Variable':<20} {'OR':>8} {'95% CI':>20} {'p-value':>10}")
-    print(f"  {'-'*60}")
+    print(f"  {'-' * 60}")
     for _, row in or_df.iterrows():
         ci_str = f"[{row['OR 95% CI Lower']:.3f} - {row['OR 95% CI Upper']:.3f}]"
         sig = " *" if row["p-value"] < 0.05 else ""
-        print(f"  {row['Variable']:<20} {row['OR']:>8.3f} {ci_str:>20} {row['p-value']:>10.4f}{sig}")
+        print(
+            f"  {row['Variable']:<20} {row['OR']:>8.3f} {ci_str:>20} {row['p-value']:>10.4f}{sig}"
+        )
     print()
 
     # --- Predictions and classification --------------------------------------
-    y_prob = model.predict(X_const)
+    y_prob = model.predict(features_const)
     y_pred = (y_prob >= args.threshold).astype(int)
 
     print(f"Classification (threshold = {args.threshold}):")
     cm = confusion_matrix(y, y_pred)
-    print(f"  Confusion Matrix:")
+    print("  Confusion Matrix:")
     print(f"    {'':>10} Pred 0  Pred 1")
     print(f"    {'Actual 0':>10}  {cm[0, 0]:>5}   {cm[0, 1]:>5}")
     print(f"    {'Actual 1':>10}  {cm[1, 0]:>5}   {cm[1, 1]:>5}")
@@ -162,9 +167,8 @@ Examples:
         grouped["obs_non"] = grouped["obs_n"] - grouped["obs_events"]
 
         hl_stat = (
-            ((grouped["obs_events"] - grouped["exp_events"]) ** 2 / grouped["exp_events"]).sum()
-            + ((grouped["obs_non"] - grouped["exp_non"]) ** 2 / grouped["exp_non"]).sum()
-        )
+            (grouped["obs_events"] - grouped["exp_events"]) ** 2 / grouped["exp_events"]
+        ).sum() + ((grouped["obs_non"] - grouped["exp_non"]) ** 2 / grouped["exp_non"]).sum()
         from scipy.stats import chi2
 
         hl_p = 1 - chi2.cdf(hl_stat, df=len(grouped) - 2)

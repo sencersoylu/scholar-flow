@@ -156,9 +156,7 @@ Examples:
     print()
     print("Cell contributions to chi-square (standardised residuals):")
     std_resid = (ct_no_margins.values - expected) / np.sqrt(expected)
-    resid_df = pd.DataFrame(
-        std_resid, index=ct_no_margins.index, columns=ct_no_margins.columns
-    )
+    resid_df = pd.DataFrame(std_resid, index=ct_no_margins.index, columns=ct_no_margins.columns)
     print(resid_df.round(3).to_string())
 
 

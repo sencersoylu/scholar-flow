@@ -26,10 +26,10 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-
 # ---------------------------------------------------------------------------
 # Effect size
 # ---------------------------------------------------------------------------
+
 
 def cohens_d_independent(a: np.ndarray, b: np.ndarray) -> float:
     """Compute Cohen's d for independent samples using pooled SD."""
@@ -85,6 +85,7 @@ def paired_diff_ci(diff: np.ndarray, alpha: float = 0.05) -> tuple:
 # Assumption checks
 # ---------------------------------------------------------------------------
 
+
 def check_normality(data: np.ndarray, label: str, alpha: float = 0.05) -> bool:
     """Run Shapiro-Wilk and print result. Returns True if normal."""
     if len(data) < 3:
@@ -110,6 +111,7 @@ def check_equal_variance(a: np.ndarray, b: np.ndarray, alpha: float = 0.05) -> b
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(

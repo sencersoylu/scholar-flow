@@ -61,7 +61,12 @@ Examples:
     )
     parser.add_argument("--input", "-i", required=True, help="Path to CSV file.")
     parser.add_argument("--column", "-c", required=True, help="Numeric variable to compare.")
-    parser.add_argument("--group-column", "-g", required=True, help="Grouping variable (must have exactly 2 levels).")
+    parser.add_argument(
+        "--group-column",
+        "-g",
+        required=True,
+        help="Grouping variable (must have exactly 2 levels).",
+    )
     parser.add_argument("--alpha", "-a", type=float, default=0.05, help="Significance level.")
     parser.add_argument(
         "--alternative",
@@ -138,7 +143,9 @@ Examples:
         hl = np.median(pairwise)
         print(f"\nHodges-Lehmann estimate of location shift: {hl:.4f}")
     else:
-        print("\nHodges-Lehmann estimate skipped (sample sizes too large for pairwise computation).")
+        print(
+            "\nHodges-Lehmann estimate skipped (sample sizes too large for pairwise computation)."
+        )
 
 
 if __name__ == "__main__":
