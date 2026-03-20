@@ -6,7 +6,7 @@ Process external peer review comments and prepare point-by-point revision respon
 
 ## Skills Loaded
 
-- `revision-response`
+- `skills/quality/revision-response/SKILL.md`
 
 ## MCP Tools
 

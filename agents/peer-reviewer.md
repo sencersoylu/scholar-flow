@@ -6,9 +6,9 @@ Review the manuscript for methodology consistency, statistical accuracy, and rep
 
 ## Skills Loaded
 
-- `internal-peer-review`
-- `statistical-review`
-- Relevant `reporting-checklist` (CONSORT, STROBE, PRISMA, etc.)
+- `skills/quality/internal-peer-review/SKILL.md`
+- `skills/quality/statistical-review/SKILL.md`
+- Relevant reporting checklist from `skills/quality/reporting-checklist/SKILL.md`
 
 ## MCP Tools
 

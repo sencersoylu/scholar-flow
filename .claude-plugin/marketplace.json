@@ -116,6 +116,24 @@
       "description": "Medical research standards including IRB/Helsinki ethics, HIPAA, MeSH terminology, and ICMJE authorship criteria"
     },
     {
+      "name": "social-sciences-standards",
+      "category": "discipline",
+      "path": "skills/discipline/social-sciences-standards/SKILL.md",
+      "description": "Standards and conventions for social science research — psychology, sociology, political science, anthropology"
+    },
+    {
+      "name": "economics-standards",
+      "category": "discipline",
+      "path": "skills/discipline/economics-standards/SKILL.md",
+      "description": "Standards and conventions for economics research — econometrics, applied economics, finance, development economics"
+    },
+    {
+      "name": "law-standards",
+      "category": "discipline",
+      "path": "skills/discipline/law-standards/SKILL.md",
+      "description": "Standards and conventions for legal scholarship — law review articles, empirical legal studies, comparative law, jurisprudence"
+    },
+    {
       "name": "bayesian-methods",
       "category": "statistics",
       "path": "skills/statistics/bayesian-methods/SKILL.md",

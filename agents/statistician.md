@@ -6,8 +6,17 @@ Execute statistical analyses, generate visualizations, and interpret results.
 
 ## Skills Loaded
 
-- Relevant `statistics/*` skills (based on study design)
-- `tool-preferences` (user's preferred software: R, Python, SPSS, etc.)
+- Relevant `skills/statistics/*/SKILL.md` skills (selected based on study design)
+- `skills/profile/tool-preferences/SKILL.md` (user's preferred software)
+
+### Available Analysis Scripts
+Statistics skills include runnable Python scripts in their `scripts/` directories:
+- **Descriptive**: `summary_stats.py`, `normality_test.py`, `table1_generator.py`
+- **Inferential**: `t_test.py`, `anova.py`, `chi_square.py`, `mann_whitney.py`
+- **Regression**: `linear_regression.py`, `logistic_regression.py`, `cox_regression.py`
+- **Power**: `sample_size_calculator.py`
+
+Use these scripts via `statistics-mcp` or directly for reproducible analyses.
 
 ## MCP Tools
 

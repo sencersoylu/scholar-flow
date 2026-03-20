@@ -6,8 +6,8 @@ Design the research methodology based on literature gaps and the user's research
 
 ## Skills Loaded
 
-- Relevant `methodology/*` skill
-- Relevant `discipline/*` standard
+- Relevant `skills/methodology/*/SKILL.md` skill
+- Relevant `skills/discipline/*/SKILL.md` standard
 
 ## MCP Tools
 

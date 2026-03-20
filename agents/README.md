@@ -25,6 +25,10 @@ Each agent definition follows this structure:
 - **User Interaction** — When and what this agent asks the user (if applicable)
 - **Failure Modes** — What can go wrong and how the agent handles it
 
+## Skill References
+
+Skills use a folder-based structure: `skills/<category>/<skill-name>/SKILL.md`. Some skills include runnable Python scripts in their `scripts/` subdirectory. When an agent loads a skill, it reads the `SKILL.md` file and may invoke associated scripts for analysis tasks.
+
 ## Creating a New Agent
 
 1. Copy the template into a new `.md` file in this directory

@@ -9,7 +9,7 @@ Built on [Claude Code](https://claude.ai/code) agents and the [Model Context Pro
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-compatible-green.svg)](https://modelcontextprotocol.io/)
-[![Skills: 40+](https://img.shields.io/badge/Skills-40%2B-purple.svg)](#skills)
+[![Skills: 44+](https://img.shields.io/badge/Skills-44%2B-purple.svg)](#skills)
 
 [Getting Started](#getting-started) · [Architecture](#architecture) · [Agents](#agents) · [Skills](#skills) · [MCP Servers](#mcp-servers) · [Contributing](#contributing)
 
@@ -225,7 +225,7 @@ Skills are the knowledge layer — methodology protocols, discipline standards, 
 |----------|-------|---------|
 | **Profile** | 3 | researcher-profile, writing-preferences, tool-preferences |
 | **Methodology** | 12 | systematic-review, meta-analysis, RCT, cohort-study, case-report |
-| **Discipline** | 3 | medical-standards, engineering-standards, cs-standards |
+| **Discipline** | 6 | medical, engineering, CS, social sciences, economics, law |
 | **Statistics** | 9 | inferential-statistics, regression, survival-analysis, bayesian |
 | **Publication** | 7 | ama-style, ieee-style, acm-style, journal-selector |
 | **Quality** | 6 | peer-review, statistical-review, reporting-checklist |

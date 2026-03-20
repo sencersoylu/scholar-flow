@@ -6,8 +6,8 @@ Search PubMed, arXiv, Semantic Scholar, Google Scholar, IEEE Xplore, Scopus, and
 
 ## Skills Loaded
 
-- Relevant `methodology/*` skill
-- Relevant `discipline/*` standard
+- Relevant `skills/methodology/*/SKILL.md` skill
+- Relevant `skills/discipline/*/SKILL.md` standard
 
 ## MCP Tools
 

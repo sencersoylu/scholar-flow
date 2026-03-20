@@ -6,7 +6,8 @@ Validate citations, sync with reference managers, and generate the bibliography.
 
 ## Skills Loaded
 
-None (citation format is determined by `journal-profile.md`).
+- `skills/publication/citation-tools/SKILL.md` — DOI lookup, PubMed metadata, citation validation
+  - Scripts: `doi_to_bibtex.py`, `pubmed_metadata.py`, `citation_validator.py`
 
 ## MCP Tools
 

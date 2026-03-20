@@ -6,8 +6,9 @@ Validate, clean, and prepare raw datasets for statistical analysis.
 
 ## Skills Loaded
 
-- `missing-data`
-- `descriptive-statistics`
+- `skills/statistics/missing-data/SKILL.md` — Missing data assessment (MCAR, MAR, MNAR)
+- `skills/statistics/descriptive-statistics/SKILL.md` — Summary statistics and data profiling
+  - Scripts: `summary_stats.py`, `normality_test.py`, `table1_generator.py`
 
 ## MCP Tools
 

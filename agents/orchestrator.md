@@ -6,17 +6,17 @@ Central coordinator that dispatches specialized agents, manages user interaction
 
 ## Skills Loaded
 
-- `researcher-profile` — Always loaded
-- Selects `methodology/*` skill based on Research Designer recommendation
-- Selects `discipline/*` skill based on user's field
-- Selects `publication/*` skill based on target journal
+- `skills/profile/researcher-profile/SKILL.md` — Always loaded
+- Selects `skills/methodology/*/SKILL.md` based on Research Designer recommendation
+- Selects `skills/discipline/*/SKILL.md` based on user's field
+- Selects `skills/publication/*/SKILL.md` based on target journal
 
 ### Skill Selection Algorithm
 
-1. User specifies field → load matching discipline standard
-2. Research Designer recommends study type → load matching methodology skill
-3. Target journal → load matching publication style skill
-4. Profile skills are always loaded
+1. User specifies field → load matching `skills/discipline/*/SKILL.md` standard
+2. Research Designer recommends study type → load matching `skills/methodology/*/SKILL.md` skill
+3. Target journal → load matching `skills/publication/*/SKILL.md` style skill
+4. Profile skills (`skills/profile/*/SKILL.md`) are always loaded
 
 ## MCP Tools
 

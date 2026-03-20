@@ -19,7 +19,7 @@ skills/<category>/<skill-name>/
 |----------|-----------|-------|---------|
 | Profile | `profile/` | 3 | Researcher identity, preferences, tool choices |
 | Methodology | `methodology/` | 12 | Step-by-step research protocols (PRISMA, CONSORT, etc.) |
-| Discipline | `discipline/` | 3 | Field-specific rules (medical, engineering, CS) |
+| Discipline | `discipline/` | 6 | Field-specific rules (medical, engineering, CS, social sciences, economics, law) |
 | Statistics | `statistics/` | 9 | Analysis procedures, test selection, runnable scripts |
 | Publication | `publication/` | 8 | Journal styles, formatting rules, citation tools |
 | Quality | `quality/` | 6 | Review checklists and quality control |

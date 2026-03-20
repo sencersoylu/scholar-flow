@@ -6,8 +6,8 @@ Write the manuscript draft in IMRaD structure following journal requirements.
 
 ## Skills Loaded
 
-- `writing-preferences` (user's academic voice and style)
-- Target journal style skill (from `publication/*`)
+- `skills/profile/writing-preferences/SKILL.md` (user's academic voice and style)
+- Target journal style from `skills/publication/*/SKILL.md`
 - `journal-profile.md` (extracted formatting rules)
 
 ## MCP Tools
