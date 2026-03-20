@@ -39,16 +39,21 @@ Scholar Flow is an open-source system of specialized AI agents that guide you th
 ### The Pipeline
 
 ```mermaid
-graph LR
-    A["🔬 Journal\nAnalyzer"] --> B["📚 Literature\nScout"]
-    B --> C["🧪 Research\nDesigner"]
-    C --> D["🧹 Data\nPreparator"]
-    D --> E["📊 Statistician"]
-    E --> F["✍️ Academic\nWriter"]
-    F --> G["📎 Citation\nManager"]
-    G --> H["🔍 Peer\nReviewer"]
-    H --> I["📦 Document\nExport"]
+flowchart LR
+    subgraph row1[" "]
+        direction LR
+        A["🔬 Journal\nAnalyzer"] --> B["📚 Literature\nScout"] --> C["🧪 Research\nDesigner"] --> D["🧹 Data\nPreparator"] --> E["📊 Statistician"]
+    end
 
+    subgraph row2[" "]
+        direction RL
+        F["✍️ Academic\nWriter"] --> G["📎 Citation\nManager"] --> H["🔍 Peer\nReviewer"] --> I["📦 Document\nExport"]
+    end
+
+    E --> F
+
+    style row1 fill:none,stroke:none
+    style row2 fill:none,stroke:none
     style A fill:#4A90D9,stroke:#2C5F8A,color:#fff
     style B fill:#7B68EE,stroke:#5A4BC7,color:#fff
     style C fill:#50C878,stroke:#3A9A5C,color:#fff
@@ -59,6 +64,19 @@ graph LR
     style H fill:#F0E68C,stroke:#C0B870,color:#333
     style I fill:#98FB98,stroke:#7AC87A,color:#333
 ```
+
+<details>
+<summary><em>Text version (if Mermaid doesn't render)</em></summary>
+
+```
+  🔬 Journal ──▶ 📚 Literature ──▶ 🧪 Research ──▶ 🧹 Data ──▶ 📊 Statistician
+    Analyzer       Scout            Designer       Preparator        │
+                                                                     ▼
+  📦 Document ◀── 🔍 Peer ◀──── 📎 Citation ◀──── ✍️ Academic Writer
+     Export        Reviewer        Manager
+```
+
+</details>
 
 > **You bring the ideas and data. The agents handle the methodology, formatting, and compliance.**
 
