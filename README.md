@@ -9,6 +9,7 @@ Built on [Claude Code](https://claude.ai/code) agents and the [Model Context Pro
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-compatible-green.svg)](https://modelcontextprotocol.io/)
+[![Skills: 40+](https://img.shields.io/badge/Skills-40%2B-purple.svg)](#skills)
 
 [Getting Started](#getting-started) · [Architecture](#architecture) · [Agents](#agents) · [Skills](#skills) · [MCP Servers](#mcp-servers) · [Contributing](#contributing)
 
@@ -55,6 +56,15 @@ Scholar Flow is an open-source system of specialized AI agents that guide you th
 
 ### Installation
 
+**Quick setup (one command):**
+
+```bash
+git clone https://github.com/sencersoylu/scholar-flow.git && cd scholar-flow && uv sync
+```
+
+<details>
+<summary><strong>Detailed installation</strong></summary>
+
 ```bash
 # Clone the repository
 git clone https://github.com/sencersoylu/scholar-flow.git
@@ -73,6 +83,8 @@ cp .env.example .env
 # Edit .env with your API keys
 ```
 
+</details>
+
 ### Quick Start
 
 ```bash
@@ -87,6 +99,72 @@ claude
 # 1. Setting up your researcher profile
 # 2. Selecting target journal
 # 3. Running the full pipeline
+```
+
+## Real Usage Examples
+
+### Example 1: Systematic Review on Machine Learning in Radiology
+
+```
+You:    I want to conduct a systematic review on machine learning applications
+        in chest X-ray diagnosis. Target journal: Radiology.
+
+Agent:  ── Journal Analyzer ──
+        Parsed Radiology author guidelines: structured abstract (≤300 words),
+        STARD/PRISMA checklist required, AMA citation style.
+
+        ── Literature Scout ──
+        Searching PubMed (MeSH: "Machine Learning" AND "Radiography, Thoracic")…
+        Searching arXiv (cs.CV + medical imaging)…
+        Found 847 candidate papers → 312 after deduplication → 42 after
+        title/abstract screening against your PICO criteria.
+
+        ── Research Designer ──
+        Proposed PRISMA 2020 flow diagram. Registered protocol fields drafted.
+        Ready for your review before full-text screening begins.
+```
+
+### Example 2: Power Analysis for a Clinical Trial
+
+```
+You:    Run a power analysis for a two-arm RCT comparing a new antibiotic vs
+        standard of care. Primary outcome: infection clearance at 14 days.
+        Expected effect size: 15% absolute difference (70% vs 85%).
+
+Agent:  ── Statistician (stats skill) ──
+        Invoked statistics-mcp → power_analysis tool
+        ┌──────────────────────────────────────┐
+        │ Two-proportion z-test (two-sided)    │
+        │ Alpha: 0.05 | Power: 0.80           │
+        │ p1 = 0.70, p2 = 0.85               │
+        │ Required n per arm: 133             │
+        │ Total (with 10% dropout): 296       │
+        └──────────────────────────────────────┘
+        Generated script: outputs/power_analysis.py
+        Recommend: also run sensitivity analysis across effect sizes 10–20%.
+```
+
+### Example 3: Format Manuscript for IEEE Access
+
+```
+You:    My manuscript draft is in outputs/draft.md. Format it for IEEE Access
+        and prepare the submission package.
+
+Agent:  ── Academic Writer ──
+        Loaded ieee-style skill. Restructured to IMRaD with IEEE headings.
+        Abstract condensed to 200 words. Keywords: 5 IEEE-index terms added.
+
+        ── Citation Manager ──
+        Converted 38 references to IEEE numbered style via citation-mcp.
+        Verified DOIs for all entries — 2 corrections applied.
+
+        ── Document Export ──
+        Generated via document-export-mcp:
+          • outputs/manuscript_ieee.docx  (IEEE Access template)
+          • outputs/manuscript_ieee.tex   (LaTeX two-column)
+          • outputs/figures/              (300 dpi TIF, per journal spec)
+          • outputs/cover_letter.docx
+        Submission checklist: 12/12 items passed.
 ```
 
 ## Architecture
@@ -174,6 +252,16 @@ RCT, cohort studies, case-control, systematic reviews, meta-analyses, case repor
 ### Engineering / Computer Science
 Experimental studies, computational studies, algorithm benchmarks, ablation studies. IEEE/ACM standards, artifact evaluation, reproducibility requirements.
 
+## How Scholar Flow Compares
+
+| Feature | Scholar Flow | claude-scientific-skills | Manual Workflow |
+|---------|-------------|------------------------|-----------------|
+| Full pipeline orchestration | Yes | No (skills only) | No |
+| MCP server integration | 7 servers | No | N/A |
+| Runnable analysis scripts | Yes | Yes | Write your own |
+| Multi-discipline | Medical + Engineering + CS | Science-focused | Varies |
+| Journal-adaptive formatting | Yes | Partial | Manual |
+
 ## Contributing
 
 We welcome contributions! Whether it's a new skill for your discipline, an MCP server for a new data source, or improvements to existing agents.
@@ -185,6 +273,20 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 - MCP servers for new databases (Web of Science, DBLP, Cochrane)
 - Journal style presets for popular journals
 - Translations of methodology skills
+
+## Citation
+
+If Scholar Flow assists your research, please cite:
+
+```bibtex
+@software{scholar_flow,
+  title = {Scholar Flow: AI-Powered Academic Research Pipeline},
+  author = {Soylu, Sencer},
+  year = {2025},
+  url = {https://github.com/sencersoylu/scholar-flow},
+  note = {Built on Claude Code agents and the Model Context Protocol}
+}
+```
 
 ## License
 

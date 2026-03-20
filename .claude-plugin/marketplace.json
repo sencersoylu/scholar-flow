@@ -1,0 +1,251 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/claude-plugin.json",
+  "name": "scholar-flow",
+  "version": "0.1.0",
+  "description": "AI-powered academic research pipeline — from literature review to submission-ready manuscript",
+  "author": "sencersoylu",
+  "license": "MIT",
+  "repository": "https://github.com/sencersoylu/scholar-flow",
+  "skills": [
+    {
+      "name": "researcher-profile",
+      "category": "profile",
+      "path": "skills/profile/researcher-profile/SKILL.md",
+      "description": "Researcher identity including expertise area, academic title, research interests, and publication history"
+    },
+    {
+      "name": "writing-preferences",
+      "category": "profile",
+      "path": "skills/profile/writing-preferences/SKILL.md",
+      "description": "Writing style preferences including language, tone, voice, and paragraph structure"
+    },
+    {
+      "name": "tool-preferences",
+      "category": "profile",
+      "path": "skills/profile/tool-preferences/SKILL.md",
+      "description": "Preferred tools for statistics (R/Python/SPSS), reference management (Zotero/Mendeley), and databases"
+    },
+    {
+      "name": "case-control-study",
+      "category": "methodology",
+      "path": "skills/methodology/case-control-study/SKILL.md",
+      "description": "Case-control study design with matching strategies, odds ratio calculation, and STROBE checklist"
+    },
+    {
+      "name": "case-report",
+      "category": "methodology",
+      "path": "skills/methodology/case-report/SKILL.md",
+      "description": "Case report/series structure with CARE checklist and clinical significance discussion"
+    },
+    {
+      "name": "cohort-study",
+      "category": "methodology",
+      "path": "skills/methodology/cohort-study/SKILL.md",
+      "description": "Prospective and retrospective cohort study design with STROBE checklist and confounding control"
+    },
+    {
+      "name": "computational-study",
+      "category": "methodology",
+      "path": "skills/methodology/computational-study/SKILL.md",
+      "description": "Computational study protocol with algorithm design, benchmarking, and ablation study methodology"
+    },
+    {
+      "name": "cross-sectional",
+      "category": "methodology",
+      "path": "skills/methodology/cross-sectional/SKILL.md",
+      "description": "Cross-sectional study design with sampling strategy, prevalence calculation, and STROBE checklist"
+    },
+    {
+      "name": "experimental-study",
+      "category": "methodology",
+      "path": "skills/methodology/experimental-study/SKILL.md",
+      "description": "Experimental study design with control groups, reproducibility requirements, and reporting standards"
+    },
+    {
+      "name": "meta-analysis",
+      "category": "methodology",
+      "path": "skills/methodology/meta-analysis/SKILL.md",
+      "description": "Meta-analysis protocol with effect size calculation, heterogeneity analysis, and GRADE assessment"
+    },
+    {
+      "name": "mixed-methods",
+      "category": "methodology",
+      "path": "skills/methodology/mixed-methods/SKILL.md",
+      "description": "Mixed methods research design with convergent, explanatory, and exploratory approaches"
+    },
+    {
+      "name": "qualitative-research",
+      "category": "methodology",
+      "path": "skills/methodology/qualitative-research/SKILL.md",
+      "description": "Qualitative research protocols including thematic analysis, grounded theory, and COREQ checklist"
+    },
+    {
+      "name": "randomized-controlled-trial",
+      "category": "methodology",
+      "path": "skills/methodology/randomized-controlled-trial/SKILL.md",
+      "description": "RCT design protocol with randomization, blinding, CONSORT flow diagram, and sample size calculation"
+    },
+    {
+      "name": "survey-research",
+      "category": "methodology",
+      "path": "skills/methodology/survey-research/SKILL.md",
+      "description": "Survey research protocol with questionnaire design, scale development, and validity/reliability analysis"
+    },
+    {
+      "name": "systematic-review",
+      "category": "methodology",
+      "path": "skills/methodology/systematic-review/SKILL.md",
+      "description": "PRISMA 2020 systematic review protocol with database search strategy and bias assessment"
+    },
+    {
+      "name": "cs-standards",
+      "category": "discipline",
+      "path": "skills/discipline/cs-standards/SKILL.md",
+      "description": "Computer science research standards including algorithm complexity analysis, benchmark standards, and artifact evaluation"
+    },
+    {
+      "name": "engineering-standards",
+      "category": "discipline",
+      "path": "skills/discipline/engineering-standards/SKILL.md",
+      "description": "Engineering research standards including IEEE/ACM guidelines, reproducibility requirements, and data sharing policies"
+    },
+    {
+      "name": "medical-standards",
+      "category": "discipline",
+      "path": "skills/discipline/medical-standards/SKILL.md",
+      "description": "Medical research standards including IRB/Helsinki ethics, HIPAA, MeSH terminology, and ICMJE authorship criteria"
+    },
+    {
+      "name": "bayesian-methods",
+      "category": "statistics",
+      "path": "skills/statistics/bayesian-methods/SKILL.md",
+      "description": "Bayesian statistical methods including prior selection, posterior interpretation, and Bayes factor calculation"
+    },
+    {
+      "name": "descriptive-statistics",
+      "category": "statistics",
+      "path": "skills/statistics/descriptive-statistics/SKILL.md",
+      "description": "Descriptive statistics procedures including central tendency, distribution analysis, normality tests, and data visualization"
+    },
+    {
+      "name": "inferential-statistics",
+      "category": "statistics",
+      "path": "skills/statistics/inferential-statistics/SKILL.md",
+      "description": "Inferential test selection and execution including t-test, ANOVA, chi-square, and non-parametric alternatives"
+    },
+    {
+      "name": "missing-data",
+      "category": "statistics",
+      "path": "skills/statistics/missing-data/SKILL.md",
+      "description": "Missing data handling including mechanism assessment (MCAR/MAR/MNAR) and imputation strategies"
+    },
+    {
+      "name": "ml-evaluation",
+      "category": "statistics",
+      "path": "skills/statistics/ml-evaluation/SKILL.md",
+      "description": "Machine learning evaluation metrics including cross-validation, ROC/AUC, precision/recall, and confusion matrix"
+    },
+    {
+      "name": "multivariate-analysis",
+      "category": "statistics",
+      "path": "skills/statistics/multivariate-analysis/SKILL.md",
+      "description": "Multivariate methods including PCA, factor analysis, clustering, and structural equation modeling"
+    },
+    {
+      "name": "power-analysis",
+      "category": "statistics",
+      "path": "skills/statistics/power-analysis/SKILL.md",
+      "description": "Sample size and power analysis with effect size estimation and Type I/II error control"
+    },
+    {
+      "name": "regression-analysis",
+      "category": "statistics",
+      "path": "skills/statistics/regression-analysis/SKILL.md",
+      "description": "Regression analysis protocols for linear, logistic, and Cox regression with model selection and assumption checks"
+    },
+    {
+      "name": "survival-analysis",
+      "category": "statistics",
+      "path": "skills/statistics/survival-analysis/SKILL.md",
+      "description": "Survival analysis with Kaplan-Meier estimation, log-rank tests, and Cox proportional hazards modeling"
+    },
+    {
+      "name": "acm-style",
+      "category": "publication",
+      "path": "skills/publication/acm-style/SKILL.md",
+      "description": "ACM citation and formatting rules for computing journals and conferences"
+    },
+    {
+      "name": "ama-style",
+      "category": "publication",
+      "path": "skills/publication/ama-style/SKILL.md",
+      "description": "AMA Manual of Style citation and formatting rules for medical journals"
+    },
+    {
+      "name": "apa-style",
+      "category": "publication",
+      "path": "skills/publication/apa-style/SKILL.md",
+      "description": "APA 7th Edition citation and formatting rules for interdisciplinary use"
+    },
+    {
+      "name": "cover-letter",
+      "category": "publication",
+      "path": "skills/publication/cover-letter/SKILL.md",
+      "description": "Editor cover letter writing guide with article summary, suitability argument, and formatting"
+    },
+    {
+      "name": "ieee-style",
+      "category": "publication",
+      "path": "skills/publication/ieee-style/SKILL.md",
+      "description": "IEEE citation and formatting rules for engineering journals and conferences"
+    },
+    {
+      "name": "journal-selector",
+      "category": "publication",
+      "path": "skills/publication/journal-selector/SKILL.md",
+      "description": "Journal selection guide based on impact factor, scope fit, publication timeline, and open access policy"
+    },
+    {
+      "name": "vancouver-style",
+      "category": "publication",
+      "path": "skills/publication/vancouver-style/SKILL.md",
+      "description": "Vancouver (numbered) reference system commonly used in medical journals"
+    },
+    {
+      "name": "internal-peer-review",
+      "category": "quality",
+      "path": "skills/quality/internal-peer-review/SKILL.md",
+      "description": "Internal peer review protocol checking methodology consistency, result interpretation, and logical fallacies"
+    },
+    {
+      "name": "plagiarism-check",
+      "category": "quality",
+      "path": "skills/quality/plagiarism-check/SKILL.md",
+      "description": "Plagiarism and similarity check strategy with paraphrase improvement suggestions"
+    },
+    {
+      "name": "reporting-checklist",
+      "category": "quality",
+      "path": "skills/quality/reporting-checklist/SKILL.md",
+      "description": "Reporting guideline compliance checker for CONSORT, STROBE, PRISMA, ARRIVE, and CARE checklists"
+    },
+    {
+      "name": "reproducibility-check",
+      "category": "quality",
+      "path": "skills/quality/reproducibility-check/SKILL.md",
+      "description": "Reproducibility assessment checking data/code sharing adequacy and methodology detail level"
+    },
+    {
+      "name": "revision-response",
+      "category": "quality",
+      "path": "skills/quality/revision-response/SKILL.md",
+      "description": "Systematic response to peer reviewer comments with point-by-point response letter template"
+    },
+    {
+      "name": "statistical-review",
+      "category": "quality",
+      "path": "skills/quality/statistical-review/SKILL.md",
+      "description": "Statistical review protocol checking for p-hacking, multiple comparison correction, and effect size reporting"
+    }
+  ]
+}

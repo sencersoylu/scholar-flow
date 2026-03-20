@@ -2,11 +2,20 @@
 
 ## What is a Skill?
 
-A skill is a markdown file that encodes domain expertise — methodology protocols, discipline standards, statistical procedures, or formatting rules. Agents load relevant skills to guide their work.
+A skill is a folder that encodes domain expertise — methodology protocols, discipline standards, statistical procedures, or formatting rules. Agents load relevant skills to guide their work. Each skill folder contains a `SKILL.md` definition and optionally includes runnable scripts and reference documents.
 
-## Skill Template
+## Skill Folder Structure
 
-Every skill uses this frontmatter format:
+```
+skills/<category>/<skill-name>/
+├── SKILL.md          # Required — skill definition with frontmatter
+├── scripts/          # Optional — runnable Python scripts
+└── references/       # Optional — detailed reference documents
+```
+
+## SKILL.md Frontmatter
+
+Every `SKILL.md` uses this frontmatter format:
 
 ```yaml
 ---
@@ -24,8 +33,8 @@ description: One-line description
 | Profile | `skills/profile/` | Researcher preferences and tool choices |
 | Methodology | `skills/methodology/` | Research design protocols (PRISMA, CONSORT, etc.) |
 | Discipline | `skills/discipline/` | Field-specific rules and standards |
-| Statistics | `skills/statistics/` | Analysis procedures and test selection guides |
-| Publication | `skills/publication/` | Citation styles and journal formatting |
+| Statistics | `skills/statistics/` | Analysis procedures, test selection, runnable scripts |
+| Publication | `skills/publication/` | Citation styles, journal formatting, citation tools |
 | Quality | `skills/quality/` | Review checklists and quality assurance |
 
 ## Best Practices
@@ -36,9 +45,9 @@ description: One-line description
 - Include checklists where applicable
 - Keep skills focused — one methodology per file
 
-## Annotated Example: `systematic-review.md`
+## Annotated Example: `systematic-review`
 
-The `skills/methodology/systematic-review.md` skill is a fully implemented example. Below is a walkthrough of how it is structured and why.
+The `skills/methodology/systematic-review/SKILL.md` skill is a fully implemented example. Below is a walkthrough of how it is structured and why.
 
 ### Frontmatter
 
@@ -134,14 +143,37 @@ frontmatter (name, category, discipline, description)
 ## References         ← authoritative sources
 ```
 
+## Adding Scripts to a Skill
+
+Some skills benefit from runnable Python scripts — especially statistics and citation tools. Place scripts in the `scripts/` subdirectory:
+
+```
+skills/statistics/descriptive-statistics/
+├── SKILL.md
+├── scripts/
+│   ├── summary_stats.py
+│   ├── normality_test.py
+│   └── table1_generator.py
+└── references/
+```
+
+Script conventions:
+- Add `#!/usr/bin/env python3` shebang
+- Use `argparse` for CLI arguments
+- Include a docstring with usage examples
+- Prefer stdlib-only dependencies where possible; use `numpy`, `scipy`, `statsmodels`, `pandas` for statistics
+- Include `if __name__ == "__main__":` block
+
 ## Testing Your Skill
 
-1. **Frontmatter validation** — Verify all four required fields (`name`, `category`, `discipline`, `description`) are present and the `category` matches the directory the file is in.
+1. **Frontmatter validation** — Verify all four required fields (`name`, `category`, `discipline`, `description`) are present and the `category` matches the directory the skill folder is in.
 
 2. **Dry-run with an agent** — Use the research-design agent or methodology-advisor agent and describe a task that should trigger your skill. Confirm the agent loads the correct skill and follows the protocol steps.
 
-3. **Checklist pass** — If your skill includes a checklist, generate a sample output and verify every checklist item is addressed.
+3. **Script testing** — If your skill includes scripts, verify they run with `python scripts/<name>.py --help` and produce expected output.
 
-4. **Cross-reference check** — If your skill references other skills (e.g., "see meta-analysis skill"), verify those skills exist and the names match.
+4. **Checklist pass** — If your skill includes a checklist, generate a sample output and verify every checklist item is addressed.
 
-5. **Peer review** — Have a domain expert review the protocol for accuracy against current guidelines. Skills encode expert knowledge, so factual correctness is critical.
+5. **Cross-reference check** — If your skill references other skills (e.g., "see meta-analysis skill"), verify those skills exist and the names match.
+
+6. **Peer review** — Have a domain expert review the protocol for accuracy against current guidelines. Skills encode expert knowledge, so factual correctness is critical.
