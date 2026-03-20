@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 10 specialized agent definitions
 - 40+ methodology skill placeholders
 - 7 MCP server skeletons (PubMed, arXiv, Semantic Scholar, Statistics, Journal Parser, Citation, Document Export)
+- 20 core skills fully implemented (methodology, discipline, statistics, publication, quality, profile)
